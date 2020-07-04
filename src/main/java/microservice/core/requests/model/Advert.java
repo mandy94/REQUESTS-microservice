@@ -22,6 +22,7 @@ import microservice.core.requests.model.additions.*;
 public class Advert {
 	
 
+
 		@Id
 	    @Column(name = "id")
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +41,13 @@ public class Advert {
 		@ManyToOne
 		@JoinColumn(name="manufacturer_id")
 		private Manufacturer manufacturer;
+		
+
+		@ManyToOne
+		@JoinColumn(name="fuel_id")
+		private Fuel fuel;
+		
+		
 		
 //		@ManyToOne
 //		@JoinColumn(name="model_id")	
@@ -188,4 +196,12 @@ public class Advert {
 		public void setRequests(List<RentingRequest> requests) {
 			this.requests = requests;
 		}
+
+		public Fuel getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(Fuel fuel) {
+		this.fuel = fuel;
+	}
 }
