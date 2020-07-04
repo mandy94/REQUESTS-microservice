@@ -1,5 +1,5 @@
 
-package microservice.requests.model.additions;
+package microservice.core.requests.model.additions;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "FUEL")
-public class Fuel {
+@Table(name = "CITY")
+public class City {
 
 	@Id
     @Column(name = "id")
@@ -18,11 +18,9 @@ public class Fuel {
  
 	@Column(name = "title")
     private String title;
-
-	@Override
-	public String toString() {
-		return "Fuel [id=" + id + ", title=" + title + "]";
-	}
+	
+	@Column(name = "code")
+    private Integer code;
 
 	public Long getId() {
 		return id;
@@ -38,6 +36,14 @@ public class Fuel {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Integer getCode() {
+		return code;
+	}
+
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 	
 	

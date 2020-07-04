@@ -1,4 +1,4 @@
-package microservice.requests.model;
+package microservice.core.requests.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import microservice.requests.model.additions.*;
+import microservice.core.requests.model.additions.*;
 
 @Entity
 @Table(name = "ADVERT")

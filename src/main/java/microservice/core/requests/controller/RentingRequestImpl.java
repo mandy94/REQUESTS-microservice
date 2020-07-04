@@ -1,10 +1,10 @@
-package microservice.requests.controller;
+package microservice.core.requests.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import microservice.requests.model.RentingRequest;
+import microservice.core.requests.model.RentingRequest;
 
 
 @Service
@@ -24,8 +24,8 @@ public class RentingRequestImpl implements RentingRequestService {
 	}
 
 	@Override
-	public List<RentingRequest> findByUsername(String username) {
-		return repo.findByUsername(username);
+	public List<RentingRequest> findByUser(Long id) {
+		return repo.findByUser(id);
 	}
 	@Override
 	public void save(RentingRequest r) {
@@ -44,6 +44,7 @@ public class RentingRequestImpl implements RentingRequestService {
 	public List<RentingRequest> findMyRequestByStatus(Long id, String status) {
 		return repo.findMyRequestByStatus(id, status);
 	}
+
 
 
 	

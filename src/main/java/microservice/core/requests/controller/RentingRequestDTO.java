@@ -1,4 +1,4 @@
-package microservice.requests.controller;
+package microservice.core.requests.controller;
 
 public class RentingRequestDTO {
 

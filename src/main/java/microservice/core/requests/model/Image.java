@@ -1,4 +1,4 @@
-package microservice.requests.model;
+package microservice.core.requests.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

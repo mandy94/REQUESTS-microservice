@@ -1,4 +1,4 @@
-package microservice.requests.model;
+package microservice.core.requests.model;
 import java.util.ArrayList;
 import java.util.List;
 

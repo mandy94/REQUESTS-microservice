@@ -1,10 +1,10 @@
-package micoservice.requests;
+package microservice.core.requests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RequestsMicroserviceApplicationTests {
+class RequestsApplicationTests {
 
 	@Test
 	void contextLoads() {

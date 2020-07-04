@@ -1,26 +1,15 @@
 
-package microservice.requests.model.additions;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
+package microservice.core.requests.model.additions;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import microservice.requests.model.Advert;
-
-
 @Entity
-@Table(name = "GEAR")
-public class GearBoxType {
+@Table(name = "FUEL")
+public class Fuel {
 
 	@Id
     @Column(name = "id")
@@ -29,10 +18,6 @@ public class GearBoxType {
  
 	@Column(name = "title")
     private String title;
-	
-	@OneToMany(mappedBy = "gear", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
-	@JsonIgnore
-	private List<Advert> adverts = new ArrayList<Advert>();	
 
 	@Override
 	public String toString() {
@@ -54,5 +39,6 @@ public class GearBoxType {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	
 }

@@ -1,4 +1,5 @@
-package microservice.requests.model.additions;
+
+package microservice.core.requests.model.additions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +15,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import microservice.requests.model.Advert;
-
 
 @Entity
-@Table(name = "MANUFACTURER")
-public class Manufacturer {
+@Table(name = "MODEL")
+public class Model {
 
 	@Id
     @Column(name = "id")
@@ -28,14 +27,12 @@ public class Manufacturer {
  
 	@Column(name = "title")
     private String title;
-
-	@OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
-	@JsonIgnore
-	private List<Advert> adverts = new ArrayList<Advert>();
-	
+//	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JsonIgnore
+//	private List<Advert> adverts = new ArrayList<Advert>();
 	@Override
 	public String toString() {
-		return "Manufacturer [id=" + id + ", title=" + title + "]";
+		return "Model [id=" + id + ", title=" + title + "]";
 	}
 
 	public Long getId() {
@@ -53,5 +50,13 @@ public class Manufacturer {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
+//	public List<Advert> getAdverts() {
+//		return adverts;
+//	}
+//
+//	public void setAdverts(List<Advert> adverts) {
+//		this.adverts = adverts;
+//	}
+//	
 }

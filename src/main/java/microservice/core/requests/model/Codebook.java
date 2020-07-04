@@ -1,12 +1,12 @@
-package microservice.requests.model;
+package microservice.core.requests.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import microservice.requests.model.additions.City;
-import microservice.requests.model.additions.Fuel;
-import microservice.requests.model.additions.Manufacturer;
-import microservice.requests.model.additions.Model;
+import microservice.core.requests.model.additions.City;
+import microservice.core.requests.model.additions.Fuel;
+import microservice.core.requests.model.additions.Manufacturer;
+import microservice.core.requests.model.additions.Model;
 
 
 public class Codebook {
