@@ -1,5 +1,5 @@
 
-package microservice.core.requests.model.additions;
+package microservice.core.advert.model.additions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +15,12 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import microservice.core.requests.model.Advert;
+import microservice.core.advert.model.Advert;
+
 
 @Entity
-@Table(name = "FUEL")
-public class Fuel {
+@Table(name = "GEAR")
+public class GearBoxType {
 
 	@Id
     @Column(name = "id")
@@ -28,11 +29,10 @@ public class Fuel {
  
 	@Column(name = "title")
     private String title;
-
-	@OneToMany(mappedBy = "fuel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
-	@JsonIgnore
-	private List<Advert> adverts = new ArrayList<Advert>();
 	
+	@OneToMany(mappedBy = "gear", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
+	@JsonIgnore
+	private List<Advert> adverts = new ArrayList<Advert>();	
 
 	@Override
 	public String toString() {
@@ -54,6 +54,5 @@ public class Fuel {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 	
 }

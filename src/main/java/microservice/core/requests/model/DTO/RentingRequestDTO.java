@@ -1,14 +1,22 @@
-package microservice.core.requests.controller;
+package microservice.core.requests.model.DTO;
+
+import microservice.core.requests.model.Advert;
+import microservice.core.requests.model.BundleRequest;
 
 public class RentingRequestDTO {
 
-	 String rentingDate;
+	String rentingDate;
 	String returningDate;
 	String rentingTime;
 	String returningTime;
+
+	Advert advert;
+	String status;
 	
-	Long advertid;
-	Long user_id;
+	public RentingRequestDTO() {}
+	 
+	public RentingRequestDTO(BundleRequest req) {
+	}
 	public String getRentingDate() {
 		return rentingDate;
 	}
@@ -33,17 +41,23 @@ public class RentingRequestDTO {
 	public void setReturningTime(String returningTime) {
 		this.returningTime = returningTime;
 	}
-	public Long getAdvertid() {
-		return advertid;
+	
+	public Advert getAdvert() {
+		return advert;
 	}
-	public void setAdvertid(Long advertid) {
-		this.advertid = advertid;
+	public void setAdvert(Advert advert) {
+		this.advert = advert;
 	}
-	public Long getUser_id() {
-		return user_id;
+
+	public String getStatus() {
+		return status;
 	}
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
+
+	
+
 	
 }

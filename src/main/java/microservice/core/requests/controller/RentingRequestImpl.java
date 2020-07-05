@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import microservice.core.requests.model.RentingRequest;
+import microservice.core.requests.model.BundleRequest;
 
 
 @Service
@@ -13,36 +13,42 @@ public class RentingRequestImpl implements RentingRequestService {
 	private RentingRequestRepository repo;
 
 	@Override
-	public List<RentingRequest> findAll() {
+	public List<BundleRequest> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RentingRequest findById(Long id) {
+	public BundleRequest findById(Long id) {
 		return repo.findById(id).orElse(null);
 	}
 
 	@Override
-	public List<RentingRequest> findByUser(Long id) {
+	public List<BundleRequest> findByUser(Long id) {
 		return repo.findByUser(id);
 	}
 	@Override
-	public void save(RentingRequest r) {
+	public void save(BundleRequest r) {
 		repo.save(r);
 		
 	}
 
 
 	@Override
-	public RentingRequest checkIfIAlreadyRequestedFrom(Long whoasked, Long whoposted) {
-		RentingRequest req = repo.findMyRequestsFrom(whoasked, whoposted);
+	public BundleRequest checkIfIAlreadyRequestedFrom(Long whoasked, Long whoposted) {
+		BundleRequest req = repo.findMyRequestsFrom(whoasked, whoposted);
 		return req;
 	}
 
 	@Override
-	public List<RentingRequest> findMyRequestByStatus(Long id, String status) {
-		return repo.findMyRequestByStatus(id, status);
+	public List<BundleRequest> findMyRequestByStatus(Long id, String status) {
+//		return repo.findMyRequestByStatus(id, status);
+		return null;
+	}
+
+	@Override
+	public List<BundleRequest> findForUser(Long id) {
+		return repo.findByWhoPosted(id);
 	}
 
 

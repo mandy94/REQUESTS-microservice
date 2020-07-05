@@ -1,5 +1,5 @@
 
-package microservice.core.requests.model.additions;
+package microservice.core.advert.model.additions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import microservice.core.requests.model.Advert;
+import microservice.core.advert.model.Advert;
 
 @Entity
 @Table(name = "FUEL")

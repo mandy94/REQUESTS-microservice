@@ -2,14 +2,15 @@ package microservice.core.requests.controller;
 
 import java.util.List;
 
-import microservice.core.requests.model.RentingRequest;
+import microservice.core.requests.model.BundleRequest;
 
 
 public interface RentingRequestService {
-	List<RentingRequest>findAll();
-	RentingRequest findById(Long id);
-	void save(RentingRequest r);
-	List<RentingRequest> findByUser(Long id);
-	RentingRequest checkIfIAlreadyRequestedFrom(Long whoasked, Long whoposted);
-	List<RentingRequest> findMyRequestByStatus(Long id, String string);
+	List<BundleRequest>findAll();
+	BundleRequest findById(Long id);
+	void save(BundleRequest r);
+	List<BundleRequest> findByUser(Long id);
+	BundleRequest checkIfIAlreadyRequestedFrom(Long whoasked, Long whoposted);
+	List<BundleRequest> findMyRequestByStatus(Long id, String string);
+	List<BundleRequest> findForUser(Long id);
 }

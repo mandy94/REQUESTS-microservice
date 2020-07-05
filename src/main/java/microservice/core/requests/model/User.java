@@ -1,5 +1,6 @@
 package microservice.core.requests.model;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -73,7 +73,7 @@ public class User implements UserDetails {
     private List<Authority> authorities;
 
     @OneToMany(mappedBy = "user_id")
-    private List<Advert> users_adverts;
+    private List<Advert> users_adverts = new ArrayList<Advert>();
     
     public List<Advert> getUsers_adverts() {
 		return users_adverts;

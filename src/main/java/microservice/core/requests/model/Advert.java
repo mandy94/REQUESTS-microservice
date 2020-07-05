@@ -11,18 +11,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import microservice.core.requests.model.additions.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import microservice.core.requests.model.additions.CarClass;
+import microservice.core.requests.model.additions.Fuel;
+import microservice.core.requests.model.additions.GearBoxType;
+import microservice.core.requests.model.additions.Manufacturer;
 
 @Entity
 @Table(name = "ADVERT")
 public class Advert {
-	
-
-
 		@Id
 	    @Column(name = "id")
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,20 +39,14 @@ public class Advert {
 		@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	    public Pricelist priceList;
 		
-	
 		@ManyToOne
 		@JoinColumn(name="manufacturer_id")
 		private Manufacturer manufacturer;
 		
-
 		@ManyToOne
 		@JoinColumn(name="fuel_id")
 		private Fuel fuel;
-		
-		
-		
-//		@ManyToOne
-//		@JoinColumn(name="model_id")	
+
 		private String model;
 		
 		@ManyToOne
@@ -61,11 +57,16 @@ public class Advert {
 		@JoinColumn(name="cclass_id")	
 		private CarClass cclass;
 		
-		@ManyToMany		
-		private List<RentingRequest> requests = new ArrayList<RentingRequest>();
+		@OneToMany(mappedBy = "advert")
+		@JsonIgnore
+		private List<RequestedCarTerm> requests = new ArrayList<RequestedCarTerm>();
 		
-		private String imgmain;
-	
+		@ManyToOne
+		@JoinColumn(name="user_id")		
+		public Long getUser_id() {
+			return user_id;
+		}
+		private String imgmain;	
 		
 		private Float milage;
 		private Boolean kidsSeat;
@@ -73,11 +74,6 @@ public class Advert {
 		private Boolean CDWprotection;
 		
 		
-		@ManyToOne
-		@JoinColumn(name="user_id")		
-		public Long getUser_id() {
-			return user_id;
-		}
 
 		public void setUser_id(Long user_id) {
 			this.user_id = user_id;
@@ -189,11 +185,11 @@ public class Advert {
 			this.imgmain = imgMain;
 		}
 
-		public List<RentingRequest> getRequests() {
+		public List<RequestedCarTerm> getRequests() {
 			return requests;
 		}
 
-		public void setRequests(List<RentingRequest> requests) {
+		public void setRequests(List<RequestedCarTerm> requests) {
 			this.requests = requests;
 		}
 

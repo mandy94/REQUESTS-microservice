@@ -1,5 +1,6 @@
 
-package microservice.core.requests.model.additions;
+package microservice.core.advert.model.additions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +11,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import microservice.core.requests.model.Advert;
+import microservice.core.advert.model.Advert;
+
 
 @Entity
-@Table(name = "FUEL")
-public class Fuel {
+@Table(name = "CARCLASS")
+public class CarClass {
 
 	@Id
     @Column(name = "id")
@@ -28,16 +31,10 @@ public class Fuel {
  
 	@Column(name = "title")
     private String title;
-
-	@OneToMany(mappedBy = "fuel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
+	
+	@OneToMany(mappedBy = "cclass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
 	@JsonIgnore
 	private List<Advert> adverts = new ArrayList<Advert>();
-	
-
-	@Override
-	public String toString() {
-		return "Fuel [id=" + id + ", title=" + title + "]";
-	}
 
 	public Long getId() {
 		return id;
@@ -54,6 +51,15 @@ public class Fuel {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public List<Advert> getAdverts() {
+		return adverts;
+	}
+
+	public void setAdverts(List<Advert> adverts) {
+		this.adverts = adverts;
+	}
+
 	
 	
 }
