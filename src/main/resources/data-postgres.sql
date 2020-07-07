@@ -54,6 +54,12 @@ INSERT INTO FUEL (title) VALUES ('Gas');
 INSERT INTO FUEL (title) VALUES ('Benzin');
 INSERT INTO FUEL (title) VALUES ('Nafta');
 
+INSERT INTO PRICELIST (cdw,price_per_day, price_per_km, creator_id) VALUES (12000, 3200, 500, 5);
+INSERT INTO PRICELIST (cdw,price_per_day, price_per_km, creator_id) VALUES (12000, 3000, 700, 5);
+INSERT INTO PRICELIST (cdw,price_per_day, price_per_km, creator_id) VALUES (10000, 1200, 500, 5);
+INSERT INTO PRICELIST (cdw,price_per_day, price_per_km, creator_id) VALUES (0, 1000, 100, 5);
+
+
 INSERT INTO CARCLASS (title) VALUES ('SUV');
 INSERT INTO ADVERT (user_id, imgMain,  title, cdwprotection, kids_seat, milage , number_of_kids_seat,manufacturer_id, model, gear_id, cclass_id, fuel_id) VALUES (1,'https://www.chevrolet.com/content/dam/chevrolet/na/us/english/index/vehicles/2020/cars/spark/colorizer/01-images/2020-spark-2lt-gg2-colorizer.jpg?imwidth=960', 'Chevrolet SPARK', true, true, 10000, 2, 5, 'SPARK', 2,1,3);
 INSERT INTO ADVERT (user_id, imgMain,  title, cdwprotection, kids_seat, milage , number_of_kids_seat,manufacturer_id, model ,gear_id, cclass_id,fuel_id) VALUES (1,'../../assets/image/paugeot208.jpg', 'Peugeot 208', true, true, 10000, 2, 1, '208', 1 ,1,2);

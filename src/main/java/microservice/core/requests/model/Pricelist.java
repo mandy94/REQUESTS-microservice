@@ -31,6 +31,8 @@ public class Pricelist {
     
     @OneToMany(mappedBy = "priceList", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<Advert> advert;
+    @Column
+    private String name;
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public User creator;
@@ -81,6 +83,14 @@ public class Pricelist {
 
 	public void setCreator(User creator) {
 		this.creator = creator;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
     
     
