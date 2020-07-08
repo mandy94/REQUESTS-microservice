@@ -9,9 +9,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,6 @@ import microservice.core.requests.model.User;
 import microservice.core.requests.model.DTO.BundleRequestsDTO;
 import microservice.core.requests.model.DTO.RentingRequestDTO;
 import microservice.core.requests.model.DTO.UserDTO;
-import net.bytebuddy.implementation.bytecode.Multiplication;
 
 
 @RestController
@@ -42,6 +43,21 @@ public class RentingRequestController {
 	private String whoamiuserServiceUrl = "http://localhost:8180/users-ms/api/whoami";
 	private String userServiceUrl = "http://localhost:8180/users-ms/api/user/";
 	RestTemplate restTemplate = new RestTemplate();
+	
+	
+	@PutMapping(value="/accept-request")
+	void acceptRequest(@RequestBody Long id) {
+		RequestedCarTerm term = reqRepo.findById(id).orElse(null);
+		term.setStatus("RESERVED");
+		reqRepo.save(term);		
+	}
+	@PutMapping(value="/decline-request")
+	void declineRequest(@RequestBody Long id) {
+		RequestedCarTerm term = reqRepo.findById(id).orElse(null);
+		term.setStatus("CANCELED");
+		reqRepo.save(term);
+		
+	}
 	
 	@GetMapping(value="/user-kart/{id}")
 	List<BundleRequestsDTO> getUserKart(@PathVariable String id){
@@ -65,6 +81,7 @@ public class RentingRequestController {
 				temp.setReturningTime(term.getReturningTime());
 				temp.setAdvert(term.getAdvert());
 				temp.setStatus(term.getStatus());
+				temp.setId(term.getId());
 				bundle.getContent().add(temp);
 			}
 			asBundle.add(bundle);
@@ -102,6 +119,7 @@ public class RentingRequestController {
 				temp.setReturningTime(term.getReturningTime());
 				temp.setAdvert(term.getAdvert());
 				temp.setStatus(term.getStatus());
+				temp.setId(term.getId());
 				bundle.getContent().add(temp);
 			}
 			asBundle.add(bundle);
@@ -110,6 +128,7 @@ public class RentingRequestController {
 		return asBundle;
 		
 	}
+	
 	@PostMapping(value="/new-request")
 	void createNewRequest(@RequestBody RentingRequestDTO data,@RequestHeader("Authorization") String header) {
 		BundleRequest req = new BundleRequest();

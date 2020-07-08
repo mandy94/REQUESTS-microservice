@@ -5,6 +5,7 @@ import microservice.core.requests.model.BundleRequest;
 
 public class RentingRequestDTO {
 
+	Long id;
 	String rentingDate;
 	String returningDate;
 	String rentingTime;
@@ -55,6 +56,14 @@ public class RentingRequestDTO {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	
