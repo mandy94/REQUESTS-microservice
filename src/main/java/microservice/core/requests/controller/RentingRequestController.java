@@ -65,15 +65,17 @@ public class RentingRequestController {
 
 		for(BundleRequest req :  reqService.findByUser(Long.parseLong(id))) {
 			
-			RentingRequestDTO temp = new RentingRequestDTO();
+			
 			BundleRequestsDTO bundle = new BundleRequestsDTO();
 			List<RequestedCarTerm> other_reqs = reqRepo.findTermByRequestId(req.getId());		
 			User owner = restTemplate.getForObject(userServiceUrl + req.getWhoposted() , User.class);
 			User client = restTemplate.getForObject(userServiceUrl + req.getWhoasked() , User.class);
 			bundle.setClient(new UserDTO(client));
 			bundle.setOwner(new UserDTO(owner));
-			
+			System.out.println(" PRINTING :S ");
 			for(RequestedCarTerm term : other_reqs) {
+				RentingRequestDTO temp = new RentingRequestDTO();
+				System.out.println(term);
 				
 				temp.setRentingDate(term.getRentingDate());
 				temp.setRentingTime(term.getRentingTime());
@@ -103,7 +105,6 @@ public class RentingRequestController {
 
 		for(BundleRequest req :  reqService.findForUser(me.getBody().getId())) {
 			
-			RentingRequestDTO temp = new RentingRequestDTO();
 			BundleRequestsDTO bundle = new BundleRequestsDTO();
 			List<RequestedCarTerm> other_reqs = reqRepo.findTermByRequestId(req.getId());		
 			User owner = restTemplate.getForObject(userServiceUrl + req.getWhoposted() , User.class);
@@ -112,6 +113,7 @@ public class RentingRequestController {
 			bundle.setClient(new UserDTO(owner));
 			
 			for(RequestedCarTerm term : other_reqs) {
+				RentingRequestDTO temp = new RentingRequestDTO();
 				
 				temp.setRentingDate(term.getRentingDate());
 				temp.setRentingTime(term.getRentingTime());
@@ -164,4 +166,25 @@ public class RentingRequestController {
 		
 			
 	}
+	@DeleteMapping(value="/delete-request/{id}")
+	void deletRequest(@PathVariable Long id) {
+		RequestedCarTerm term = reqRepo.findById(id).orElse(null);
+		if(term!=null) {
+			if(!isThisRequestLast(term.getRent().getId()))
+				reqRepo.delete(term);
+			else{
+				reqRepo.delete(term);
+				reqService.deleteBundle(term.getRent().getId());
+			}
+		}
+	}
+	
+	private boolean isThisRequestLast(Long bundleid) {
+		List<RequestedCarTerm> termsInBundle = reqRepo.findTermByRequestId(bundleid);
+		if(termsInBundle.size()==1)
+			return true;
+		else
+			return false;
+		
+}
 }

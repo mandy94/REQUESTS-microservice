@@ -13,4 +13,5 @@ public interface RentingRequestService {
 	BundleRequest checkIfIAlreadyRequestedFrom(Long whoasked, Long whoposted);
 	List<BundleRequest> findMyRequestByStatus(Long id, String string);
 	List<BundleRequest> findForUser(Long id);
+	void deleteBundle(Long id);
 }
