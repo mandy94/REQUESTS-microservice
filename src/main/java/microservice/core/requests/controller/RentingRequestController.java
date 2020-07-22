@@ -72,10 +72,8 @@ public class RentingRequestController {
 			User client = restTemplate.getForObject(userServiceUrl + req.getWhoasked() , User.class);
 			bundle.setClient(new UserDTO(client));
 			bundle.setOwner(new UserDTO(owner));
-			System.out.println(" PRINTING :S ");
 			for(RequestedCarTerm term : other_reqs) {
 				RentingRequestDTO temp = new RentingRequestDTO();
-				System.out.println(term);
 				
 				temp.setRentingDate(term.getRentingDate());
 				temp.setRentingTime(term.getRentingTime());

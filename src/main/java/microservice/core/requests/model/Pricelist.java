@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -29,12 +31,17 @@ public class Pricelist {
     @Column
     private Double cdw;
     
-    @OneToMany(mappedBy = "priceList", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public Set<Advert> advert;
     @Column
     private String name;
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column
+    private Double bonus;
+    
+    @OneToMany(mappedBy = "priceList", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    public Set<Advert> advert;
+    
+    @ManyToOne
     public User creator;
 
 	public Long getId() {
@@ -91,6 +98,20 @@ public class Pricelist {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Pricelist [id=" + id + ", pricePerDay=" + pricePerDay + ", pricePerKm=" + pricePerKm + ", cdw=" + cdw
+				+ ", name=" + name + "]";
+	}
+
+	public Double getBonus() {
+		return bonus;
+	}
+
+	public void setBonus(Double bonus) {
+		this.bonus = bonus;
 	}
     
     
