@@ -1,4 +1,5 @@
 package microservice.core.requests.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +44,20 @@ public class RentingRequestImpl implements RentingRequestService {
 	}
 
 	@Override
-	public List<BundleRequest> findMyRequestByStatus(Long id, String status) {
-//		return repo.findMyRequestByStatus(id, status);
-		return null;
-	}
+	public List<RequestedCarTerm> findMyRequestByStatus(Long id, String status) {
+
+		List<BundleRequest> buns =  findForUser(id);
+		List<RequestedCarTerm> terms = new ArrayList<RequestedCarTerm>();
+		for(BundleRequest bun: buns)
+		{
+			for(RequestedCarTerm term: bun.getRequests())
+			{
+				if(term.getStatus().equals(status))
+					terms.add(term);
+			}
+		}
+		return terms;
+		}
 
 	@Override
 	public List<BundleRequest> findForUser(Long id) {
@@ -56,6 +67,12 @@ public class RentingRequestImpl implements RentingRequestService {
 	@Override
 	public void deleteBundle(Long id) {
 		repo.deleteById(id);
+		
+	}
+
+	@Override
+	public Long findOwnerOfTheRequest(Long id) {
+		return repo.findOwnerOfTheRequest(id);
 		
 	}
 

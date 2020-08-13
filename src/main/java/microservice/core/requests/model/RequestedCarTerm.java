@@ -39,6 +39,7 @@ public class RequestedCarTerm {
 	String status;
 	
 	public RequestedCarTerm() {}
+
 	
 	public RequestedCarTerm(Advert reqAdvert, BundleRequest req) {
 		this.rent_id = req;
@@ -104,6 +105,19 @@ public class RequestedCarTerm {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public boolean isPending() {
+		if( status.equals("PENDING"))
+			return true;
+		return false;
+		
+	}
+
+
+	@Override
+	public String toString() {
+		return "RequestedCarTerm [id=" + id + ", rentingDate=" + rentingDate + ", returningDate=" + returningDate + "]";
 	}	
 	
 

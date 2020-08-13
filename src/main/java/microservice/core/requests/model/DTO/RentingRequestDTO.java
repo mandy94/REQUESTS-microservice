@@ -1,7 +1,7 @@
 package microservice.core.requests.model.DTO;
 
 import microservice.core.requests.model.Advert;
-import microservice.core.requests.model.BundleRequest;
+import microservice.core.requests.model.RequestedCarTerm;
 
 public class RentingRequestDTO {
 
@@ -13,10 +13,19 @@ public class RentingRequestDTO {
 
 	Advert advert;
 	String status;
+	UserDTO whoasked; // for promting in requests
 	
 	public RentingRequestDTO() {}
 	 
-	public RentingRequestDTO(BundleRequest req) {
+	public RentingRequestDTO(RequestedCarTerm term) {
+		this.id = term.getId();
+		this.rentingDate =term.getRentingDate();
+		this.returningDate = term.getReturningDate();
+		this.rentingTime = term.getRentingTime();
+		this.returningTime = term.getReturningTime();
+		this.status = term.getStatus();
+		this.advert = term.getAdvert();
+				
 	}
 	public String getRentingDate() {
 		return rentingDate;
@@ -64,6 +73,14 @@ public class RentingRequestDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public UserDTO getWhoasked() {
+		return whoasked;
+	}
+
+	public void setWhoasked(UserDTO whoasked) {
+		this.whoasked = whoasked;
 	}
 
 	
