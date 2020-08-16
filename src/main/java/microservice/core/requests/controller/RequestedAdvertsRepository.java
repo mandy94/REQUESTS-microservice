@@ -17,6 +17,9 @@ public interface RequestedAdvertsRepository extends JpaRepository<RequestedCarTe
 	List<RequestedCarTerm> findTermByRequestId(@Param(value="id") Long id);
 	
 
+	@Query("Select u from RequestedCarTerm u where u.rent_id.id = :id and u.status = :status")
+	List<RequestedCarTerm> findTermsByRequestIdAndStatus(@Param(value="id") Long id, @Param(value="status") String status);
 	
+
 	
 }
