@@ -1,4 +1,4 @@
-package microservice.core.requests.controller;
+package microservice.core.requests.service;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import microservice.core.requests.model.BundleRequest;
 import microservice.core.requests.model.RequestedCarTerm;
+import microservice.core.requests.repository.RentingRequestRepository;
 
 
 @Service

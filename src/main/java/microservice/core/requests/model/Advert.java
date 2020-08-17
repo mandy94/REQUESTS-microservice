@@ -145,7 +145,9 @@ public class Advert {
 			this.manufacturer = manufacturer;
 		}
 
-	
+	public void updateMilage(Float diff) {
+		milage += diff;
+	}
 
 		public Float getMilage() {
 			return milage;

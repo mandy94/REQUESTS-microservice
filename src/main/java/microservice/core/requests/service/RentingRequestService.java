@@ -1,4 +1,4 @@
-package microservice.core.requests.controller;
+package microservice.core.requests.service;
 
 import java.util.List;
 

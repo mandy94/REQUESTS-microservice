@@ -30,6 +30,8 @@ import microservice.core.requests.model.DTO.AcceptedRequestDTO;
 import microservice.core.requests.model.DTO.BundleRequestsDTO;
 import microservice.core.requests.model.DTO.RentingRequestDTO;
 import microservice.core.requests.model.DTO.UserDTO;
+import microservice.core.requests.repository.RequestedAdvertsRepository;
+import microservice.core.requests.service.RentingRequestService;
 
 
 @RestController
