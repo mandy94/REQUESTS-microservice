@@ -4,7 +4,7 @@
 
  --DROP TABLE USERS ;--IF EXISTS(SELECT * FROM  USERS);
 
-INSERT INTO USERS (username, password, first_name, last_name, email, enabled, last_password_reset_date, status) VALUES ('agnt', '$2a$04$ojOHchifXeLAevDCPwfyX.p0b2MbjyDed5CPk/1IyMBVT1Gl3lZBK', 'Marko', 'Markovic', 'user@example.com', false,'2017-10-01 21:58:58.508-07', 'BLOCK');
+INSERT INTO USERS (username, password, first_name, last_name, email, enabled, last_password_reset_date, status) VALUES ('agnt', '$2a$04$ojOHchifXeLAevDCPwfyX.p0b2MbjyDed5CPk/1IyMBVT1Gl3lZBK', 'Marko', 'Markovic', 'user@example.com', true,'2017-10-01 21:58:58.508-07', 'ACTIVE');
 
 INSERT INTO USERS (username, password, first_name, last_name, email, enabled, last_password_reset_date, status) VALUES ('admin', '$2a$04$ojOHchifXeLAevDCPwfyX.p0b2MbjyDed5CPk/1IyMBVT1Gl3lZBK', 'Nikola', 'Nikolic', 'admin@example.com', true, '2017-10-01 18:57:58.508-07', 'ACTIVE');
 INSERT INTO USERS (username, password, first_name, last_name, email, enabled, last_password_reset_date, status) VALUES ('user', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Maja', 'Savic', 'kupac@example.com', true, '2017-10-01 18:57:58.508-07', 'ACTIVE');
@@ -81,10 +81,24 @@ INSERT INTO ADVERT (user_id, imgMain,  title, cdwprotection, kids_seat, milage ,
 
 INSERT INTO ADVERT (user_id, imgMain,  title, cdwprotection, kids_seat, milage , number_of_kids_seat,manufacturer_id, model, gear_id, cclass_id, fuel_id, price_list_id) VALUES (5,'audio_a5.jpg', 'Audio A5', true, true, 10000, 2, 4,'A5', 1 ,1,1, 6);
 
+INSERT INTO BUNDLE_REQUEST (whoasked, whoposted) values ( 5 , 1);
+INSERT INTO BUNDLE_REQUEST (whoasked, whoposted) values ( 4 , 1);
 
 
--- External img data -----
 
-copy image_table from 'C:/Users/spahija/Desktop/data/tables.csv';
-SELECT setval('image_table_id_seq', COALESCE((SELECT MAX(id)+1 FROM image_table), 1), false);
+INSERT INTO REQUESTED_CAR_TERM (renting_date, renting_time, returning_date, returning_time, status    , advert_id, rent_id) 
+                        values ('15.08.2020', '10:00'     , '18.08.2020'  , '12:00'       , 'PENDING' , 1        , 1);
+
+INSERT INTO REQUESTED_CAR_TERM (renting_date, renting_time,  returning_date, returning_time, status    , advert_id, rent_id) 
+                        values ('16.08.2020', '10:00'     , '19.08.2020'  , '13:00'        , 'PENDING' , 2        , 1);
+
+
+INSERT INTO REQUESTED_CAR_TERM (renting_date, renting_time,  returning_date, returning_time, status    , advert_id, rent_id) 
+                        values ('25.08.2020', '10:00'     , '28.08.2020'  , '14:00'        , 'PENDING' , 1        , 2);
+
+INSERT INTO REQUESTED_CAR_TERM (renting_date, renting_time, returning_date, returning_time, status    , advert_id, rent_id) 
+                        values ('17.08.2020', '10:00'     , '22.08.2020'  , '16:00'       , 'PENDING' , 3        , 2);
+
+
+
 

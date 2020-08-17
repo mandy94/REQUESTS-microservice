@@ -18,7 +18,7 @@ public interface RentingRequestRepository extends JpaRepository<BundleRequest, L
 	List<BundleRequest> findByWhoPosted(@Param(value="wh") Long whoposted);
 
 	@Query("Select u from BundleRequest u where u.whoasked = :wa and u.whoposted = :wp")
-	BundleRequest findMyRequestsFrom(@Param(value="wa") Long whoasked,@Param(value="wp")  Long whoposted);
+	BundleRequest findMyRequestsFrom(@Param(value="wa") Long whoasked, @Param(value="wp") Long whoposted);
 
 //	@Query("Select u from BundleRequest u where u.whoposted = :id and u.status = :status")
 //	List<BundleRequest> findMyRequestByStatus(@Param(value="id")Long id, @Param(value="status")String status);

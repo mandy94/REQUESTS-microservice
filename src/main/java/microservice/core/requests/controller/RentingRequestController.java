@@ -61,13 +61,6 @@ public class RentingRequestController {
 				
 		}
 	}
-	private String userSrviceUrl = "http://localhost:8183/api/user/";
-	
-	@GetMapping(value="/check-cover/{id}")
-	List<RentingRequestDTO> checkIfTermCovers(@RequestHeader("Authorization") String header,@PathVariable Long id){
-		System.out.println("Unitar check if cover func smo");
-		return null;
-		}
 	@PutMapping(value="/decline-request")
 	void declineRequest(@RequestBody Long id) {
 		RequestedCarTerm term = reqRepo.findById(id).orElse(null);
@@ -76,15 +69,14 @@ public class RentingRequestController {
 		
 	}
 	
-	@GetMapping(value="/user-kart/{id}")
-	List<BundleRequestsDTO> getUserKart(@PathVariable String id){
+	@GetMapping(value="/my/{status}/requests")
+	List<BundleRequestsDTO> getUserKart(@PathVariable String status, @RequestHeader("Authorization") String header){
+		ResponseEntity<User> me = authorizeMe(header);	
 		List<BundleRequestsDTO> asBundle = new ArrayList<>();
 
-		for(BundleRequest req :  reqService.findByUser(Long.parseLong(id))) {
-			
-			
+		for(BundleRequest req :  reqService.findByUser(me.getBody().getId())) {			
 			BundleRequestsDTO bundle = new BundleRequestsDTO();
-			List<RequestedCarTerm> other_reqs = reqRepo.findTermByRequestId(req.getId());		
+			List<RequestedCarTerm> other_reqs = reqRepo.findTermsByRequestIdAndStatus(req.getId(), status.toUpperCase());		
 			User owner = restTemplate.getForObject(userServiceUrl + req.getWhoposted() , User.class);
 			User client = restTemplate.getForObject(userServiceUrl + req.getWhoasked() , User.class);
 			bundle.setClient(new UserDTO(client));
@@ -99,27 +91,25 @@ public class RentingRequestController {
 				temp.setAdvert(term.getAdvert());
 				temp.setStatus(term.getStatus());
 				temp.setId(term.getId());
+//				temp.setWhoasked(?);
 				bundle.getContent().add(temp);
 			}
 			asBundle.add(bundle);
 		}
 		
-		return asBundle;
+		if(asBundle.size()==0)
+			return null;
+		else 
+			return asBundle;
 	}
 	
 	
-	@GetMapping(value="/{status}/requests")
+	@GetMapping(value="/for-me/{status}/requests")
 	List<BundleRequestsDTO> getRequestsByStatus(@PathVariable String status, @RequestHeader("Authorization") String header) {
-	
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", header );
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		    
-		ResponseEntity<User> me = restTemplate.exchange(whoamiuserServiceUrl , HttpMethod.GET, entity, User.class);
-		
+		ResponseEntity<User> me = authorizeMe(header);		
 		List<BundleRequestsDTO> asBundle = new ArrayList<>();
-
+		
 		for(BundleRequest req :  reqService.findForUser(me.getBody().getId())) {
-			
 			BundleRequestsDTO bundle = new BundleRequestsDTO();
 			List<RequestedCarTerm> other_reqs = reqRepo.findTermsByRequestIdAndStatus(req.getId(), status.toUpperCase());		
 			User owner = restTemplate.getForObject(userServiceUrl + req.getWhoposted() , User.class);
@@ -141,19 +131,19 @@ public class RentingRequestController {
 			}
 			asBundle.add(bundle);
 		}
-		
-		return asBundle;
+		if(asBundle.size() == 0)
+			return null;
+		else
+			return asBundle;
 		
 	}
 	
 	@PostMapping(value="/new-request")
 	void createNewRequest(@RequestBody RentingRequestDTO data,@RequestHeader("Authorization") String header) {
+		ResponseEntity<User> me = authorizeMe(header);
+		
 		BundleRequest req = new BundleRequest();
 		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", header );
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		    
-		ResponseEntity<User> me = restTemplate.exchange(whoamiuserServiceUrl , HttpMethod.GET, entity, User.class);
 		
 		Advert reqAdvert = restTemplate.getForObject(adServiceUrl+data.getAdvert().getId(), Advert.class);
 		
