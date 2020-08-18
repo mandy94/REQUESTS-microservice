@@ -5,6 +5,7 @@ public class StatisticDataDTO {
 	float milage;
 	
 	Long advertId;
+	Long ownerId;
 
 	public float getMilage() {
 		return milage;
@@ -20,5 +21,13 @@ public class StatisticDataDTO {
 
 	public void setAdvertId(Long advertId) {
 		this.advertId = advertId;
+	}
+
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
 	}
 }
