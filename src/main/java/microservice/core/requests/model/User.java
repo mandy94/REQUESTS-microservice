@@ -185,6 +185,27 @@ public class User implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
+    @Column(name = "canLog")
+    private boolean canLoggin;
+    
+    @Column(name = "canPost")
+    private boolean canPost;
+    
 
-	
+	public boolean isCanLoggin() {
+		return canLoggin;
+	}
+
+	public void setCanLoggin(boolean canLoggin) {
+		this.canLoggin = canLoggin;
+	}
+
+	public boolean isCanPost() {
+		return canPost;
+	}
+
+	public void setCanPost(boolean canPost) {
+		this.canPost = canPost;
+	}
+
 }
