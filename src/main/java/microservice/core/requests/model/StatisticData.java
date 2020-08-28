@@ -21,8 +21,12 @@ public class StatisticData {
 
 	@Column
 	Long advert_id;
-	@Column 
+	@Column	
 	String advert_name;
+	
+	@Column 
+	Integer rentNumber;
+	
 	@Column
 	Long owner_id;
 	
@@ -65,5 +69,18 @@ public class StatisticData {
 
 	public void setAdvert_name(String advert_name) {
 		this.advert_name = advert_name;
+	}
+
+	public Integer getRentNumber() {
+		return rentNumber;
+	}
+
+	public void setRentNumber(Integer rentNumber) {
+		this.rentNumber = rentNumber;
+	}
+
+	public void incrementRentNumber() {
+		this.rentNumber++;
+		
 	}
 }

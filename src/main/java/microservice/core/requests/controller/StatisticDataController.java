@@ -1,8 +1,10 @@
 package microservice.core.requests.controller;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,6 +29,28 @@ public class StatisticDataController {
 	@Autowired
 	private StatisticDataRepository dataRepo;
 	
+	@GetMapping("/max-milage")
+	StatisticData getAdvertWithMaxMilage() {
+		List<StatisticData> ads = dataRepo.findAll();
+		StatisticData max = ads.get(0);
+		for(StatisticData d:ads) {
+			if(max.getMilage() < d.getMilage())	
+				max = d;
+		}
+		return max;	
+		
+	}
+
+	@GetMapping("/most-popular")
+	StatisticData getMostPopularAdvert() {
+		List<StatisticData> ads = dataRepo.findAll();
+		StatisticData max = ads.get(0);
+		for(StatisticData d:ads) {
+			if(max.getRentNumber() < d.getRentNumber())
+				max = d;
+		}
+		return max;	
+	}
 	@PostMapping(value="/add")
 	void commitNewStat(@RequestHeader("Authorization") String header,@RequestBody StatisticDataDTO data) {
 		
@@ -48,6 +72,7 @@ public class StatisticDataController {
 		newData.setMilage(advert.getMilage());		
 		newData.setAdvert_id(advert.getId());
 		newData.setAdvert_name(advert.getTitle());
+		newData.setRentNumber(0);
 		newData.setOwner_id(data.getOwnerId());
 		dataRepo.save(newData);		
 	}
@@ -61,10 +86,27 @@ public class StatisticDataController {
 	@GetMapping(value="/milage")
 	ArrayList<Pair> getAdvertsOrderByMilage(@RequestHeader("Authorization") String header){
 		ArrayList<Pair> chartData = new ArrayList<>();
-		for( StatisticData x: dataRepo.findAll()) {
+		for( StatisticData x: dataRepo.findAll(Sort.by(Sort.Direction.DESC, "milage"))) {
 			chartData.add(new Pair(x.getAdvert_name(), x.getMilage()));
 		}
 		return chartData;
 	}
+	@GetMapping(value="/avg-milage")
+	ArrayList<Pair> getAvgMilage(@RequestHeader("Authorization") String header){
+		ArrayList<Pair> chartData = new ArrayList<>();
+		for( StatisticData x: dataRepo.findAll()) {
+			chartData.add(new Pair(x.getAdvert_name(), x.getMilage()/x.getRentNumber()));
+		}
+		return chartData;
+	}
+	@GetMapping(value="/rent-number")
+	ArrayList<Pair> getNumberOfRents(@RequestHeader("Authorization") String header){
+		ArrayList<Pair> chartData = new ArrayList<>();
+		for( StatisticData x: dataRepo.findAll()) {
+			chartData.add(new Pair(x.getAdvert_name(), x.getRentNumber()));
+		}
+		return chartData;
+	}
+	
 	
 }

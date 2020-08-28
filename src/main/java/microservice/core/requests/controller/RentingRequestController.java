@@ -25,12 +25,14 @@ import org.springframework.web.client.RestTemplate;
 import microservice.core.requests.model.Advert;
 import microservice.core.requests.model.BundleRequest;
 import microservice.core.requests.model.RequestedCarTerm;
+import microservice.core.requests.model.StatisticData;
 import microservice.core.requests.model.User;
 import microservice.core.requests.model.DTO.AcceptedRequestDTO;
 import microservice.core.requests.model.DTO.BundleRequestsDTO;
 import microservice.core.requests.model.DTO.RentingRequestDTO;
 import microservice.core.requests.model.DTO.UserDTO;
 import microservice.core.requests.repository.RequestedAdvertsRepository;
+import microservice.core.requests.repository.StatisticDataRepository;
 import microservice.core.requests.service.RentingRequestService;
 
 
@@ -43,6 +45,8 @@ public class RentingRequestController {
 	
 	@Autowired
 	private RequestedAdvertsRepository reqRepo; // for single requests
+	@Autowired
+	private StatisticDataRepository statsRepo;
 	
 	private String adServiceUrl   = "http://localhost:8180/adverts-ms/api/";
 	private String whoamiuserServiceUrl = "http://localhost:8180/users-ms/api/whoami";
@@ -169,9 +173,12 @@ public class RentingRequestController {
 		newTerm.setRentingTime(data.getRentingTime());
 		newTerm.setReturningDate(data.getReturningDate());
 		newTerm.setReturningTime(data.getReturningTime());
-		reqRepo.save(newTerm);
-		
-			
+		newTerm = reqRepo.save(newTerm);
+		StatisticData stats = statsRepo.findByAdvertId(reqAdvert.getId()).orElse(null);
+		if(stats!= null) {
+			stats.incrementRentNumber();
+			statsRepo.save(stats);
+		}
 	}
 	@DeleteMapping(value="/delete-request/{id}")
 	void deletRequest(@PathVariable Long id) {

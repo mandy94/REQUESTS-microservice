@@ -1,5 +1,4 @@
 package microservice.core.requests.repository;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,7 +15,10 @@ public interface StatisticDataRepository extends JpaRepository<StatisticData, Lo
 
 	@Query("Select o from StatisticData o where advert_id = :id ")
 	Optional<StatisticData> findByAdvertId(@Param("id") Long id);
-
+	@Query("Select sum(o.milage) from StatisticData o ")
+	float getTotalMilage();
+	
+	
 	
 	
 	
