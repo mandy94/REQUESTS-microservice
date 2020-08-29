@@ -29,6 +29,7 @@ import microservice.core.requests.model.StatisticData;
 import microservice.core.requests.model.User;
 import microservice.core.requests.model.DTO.AcceptedRequestDTO;
 import microservice.core.requests.model.DTO.BundleRequestsDTO;
+import microservice.core.requests.model.DTO.NewRentingRequestDTO;
 import microservice.core.requests.model.DTO.RentingRequestDTO;
 import microservice.core.requests.model.DTO.UserDTO;
 import microservice.core.requests.repository.RequestedAdvertsRepository;
@@ -48,7 +49,7 @@ public class RentingRequestController {
 	@Autowired
 	private StatisticDataRepository statsRepo;
 	
-	private String adServiceUrl   = "http://localhost:8180/adverts-ms/api/";
+	private String adServiceUrl   = "http://localhost:8180/adverts-ms/api/jpa-object/";
 	private String whoamiuserServiceUrl = "http://localhost:8180/users-ms/api/whoami";
 	private String userServiceUrl = "http://localhost:8180/users-ms/api/user/";
 	RestTemplate restTemplate = new RestTemplate();
@@ -145,14 +146,13 @@ public class RentingRequestController {
 	}
 	
 	@PostMapping(value="/new-request")
-	void createNewRequest(@RequestBody RentingRequestDTO data,@RequestHeader("Authorization") String header) {
+	void createNewRequest(@RequestBody NewRentingRequestDTO data, @RequestHeader("Authorization") String header) {
 		ResponseEntity<User> me = authorizeMe(header);
 		
 		BundleRequest req = new BundleRequest();
 		RestTemplate restTemplate = new RestTemplate();
-		
-		Advert reqAdvert = restTemplate.getForObject(adServiceUrl+data.getAdvert().getId(), Advert.class);
-		
+		System.out.println( data);
+		Advert reqAdvert = restTemplate.getForObject(adServiceUrl + data.getAdvertid(), Advert.class);
 		req.setWhoasked(me.getBody().getId());
 		req.setWhoposted(reqAdvert.getUser_id());
 		

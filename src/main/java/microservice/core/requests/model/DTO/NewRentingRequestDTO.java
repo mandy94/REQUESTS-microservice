@@ -1,32 +1,26 @@
 package microservice.core.requests.model.DTO;
 
-import microservice.core.requests.model.Advert;
 import microservice.core.requests.model.RequestedCarTerm;
 
-public class RentingRequestDTO {
+public class NewRentingRequestDTO {
 
-	Long id;
+	
 	String rentingDate;
 	String returningDate;
 	String rentingTime;
 	String returningTime;
 
-	Advert advert;
-	Long advertid;
-	String status;
-	UserDTO whoasked; // for promting in requests
 	
-	public RentingRequestDTO() {}
+	Long advertid;	
+	Long whoasked; // for promting in requests
+	
+	public NewRentingRequestDTO() {}
 	 
-	public RentingRequestDTO(RequestedCarTerm term) {
-		this.id = term.getId();
+	public NewRentingRequestDTO(RequestedCarTerm term) {
 		this.rentingDate =term.getRentingDate();
 		this.returningDate = term.getReturningDate();
 		this.rentingTime = term.getRentingTime();
 		this.returningTime = term.getReturningTime();
-		this.status = term.getStatus();
-		this.advert = term.getAdvert();
-//		this.advertid = term.getAdvert
 				
 	}
 	public String getRentingDate() {
@@ -54,36 +48,7 @@ public class RentingRequestDTO {
 		this.returningTime = returningTime;
 	}
 	
-	public Advert getAdvert() {
-		return advert;
-	}
-	public void setAdvert(Advert advert) {
-		this.advert = advert;
-	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UserDTO getWhoasked() {
-		return whoasked;
-	}
-
-	public void setWhoasked(UserDTO whoasked) {
-		this.whoasked = whoasked;
-	}
 
 	public Long getAdvertid() {
 		return advertid;
@@ -91,6 +56,13 @@ public class RentingRequestDTO {
 
 	public void setAdvertid(Long advertid) {
 		this.advertid = advertid;
+	}
+
+	@Override
+	public String toString() {
+		return "NewRentingRequestDTO [rentingDate=" + rentingDate + ", returningDate=" + returningDate
+				+ ", rentingTime=" + rentingTime + ", returningTime=" + returningTime + ", advertid=" + advertid
+				+ ", whoasked=" + whoasked + "]";
 	}
 
 	
